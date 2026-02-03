@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SailClubLibrary", "SailClub
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorBoatApp2026", "RazorBoatApp2026\RazorBoatApp2026.csproj", "{6F2529E1-23E3-415C-B132-BCF9F5A7CC61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SailClubLibraryTest", "BookingRepositoryTest\SailClubLibraryTest.csproj", "{624B3AFF-C53D-49CD-9744-9E37F111D1BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6F2529E1-23E3-415C-B132-BCF9F5A7CC61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F2529E1-23E3-415C-B132-BCF9F5A7CC61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F2529E1-23E3-415C-B132-BCF9F5A7CC61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{624B3AFF-C53D-49CD-9744-9E37F111D1BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{624B3AFF-C53D-49CD-9744-9E37F111D1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{624B3AFF-C53D-49CD-9744-9E37F111D1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{624B3AFF-C53D-49CD-9744-9E37F111D1BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
