@@ -7,9 +7,12 @@ namespace RazorBoatApp2026.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
+        public string Name { get; set; }
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
+            Name = "Peter";
         }
 
         public void OnGet()
