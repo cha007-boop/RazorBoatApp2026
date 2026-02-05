@@ -8,6 +8,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddTransient<IBoatRepository, BoatRepository>();
 builder.Services.AddTransient<IMemberRepository, MemberRepository>();
+builder.Services.AddSingleton<IBookingRepository, BookingRepository>();
 
 var app = builder.Build();
 

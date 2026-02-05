@@ -1,0 +1,56 @@
+﻿@page
+@using SailClubLibrary.Models
+@model RazorBoatApp2026.Pages.Bookings.CreateBookingModel
+@{
+    ViewData["Title"] = "Create booking"; 
+}
+
+<div>
+    <h1>Create a booking</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="NewBooking.Id" class="control-label"></label>
+                <input asp-for="NewBooking.Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewBooking.StartDate" class="control-label"></label>
+                <input asp-for="NewBooking.StartDate" class="form-control" asp-format="{0:yyyy-MM-dd-THH:mm}" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewBooking.EndDate" class="control-label"></label>
+                <input asp-for="NewBooking.EndDate" class="form-control" asp-format="{0:yyyy-MM-dd-THH:mm}" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewBooking.Destination" class="control-label"></label>
+                <input asp-for="NewBooking.Destination" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewBooking.TheMember" class="control-label"></label>
+                <select asp-for="PhoneNumber" 
+                        asp-items="Model.Members"
+                        class="form-select">
+                    <option value="">-- Select Member --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewBooking.TheBoat" class="control-label"></label>
+                <select asp-for="SailNumber"
+                        asp-items="Model.Boats"
+                        class="form-select">
+                    <option value="">-- Select Boat --</option>
+                </select>
+            </div>
+
+            <div class="formgroup mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+</div>
