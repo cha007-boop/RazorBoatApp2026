@@ -1,7 +1,7 @@
 ﻿namespace BookingRepositoryTest
 {
     [TestClass]
-    public sealed class Test1
+    public sealed class BookingRepoUnitTest
     {
         [TestMethod]
         public void TestMethod1()

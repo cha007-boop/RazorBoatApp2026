@@ -1,0 +1,67 @@
+﻿@page
+@using SailClubLibrary.Models
+@model RazorBoatApp2026.Pages.Boats.EditBoatModel
+@{
+    ViewData["Title"] = "Edit Boat";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit Boat with sail number: @Model.TheBoat.SailNumber</h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="@Model.TheBoat.SailNumber" />
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.Id" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="TheBoat.TheBoatType" class="control-label"></label>
+                <select asp-for="TheBoat.TheBoatType"
+                        asp-items="Html.GetEnumSelectList<BoatType>()"
+                        class="form-select">
+                    <option value="">-- Select boat type --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.Model" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.Model" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.SailNumber" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.SailNumber" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.EngineInfo" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.EngineInfo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.Draft" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.Draft" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.Width" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.Width" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.Length" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.Length" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TheBoat.YearOfConstruction" class="control-label"></label>
+                <input asp-for="@Model.TheBoat.YearOfConstruction" class="form-control" />
+            </div>
+
+            <div class="formgroup mt-3">
+                <input type="submit" asp-page-handler="Edit" value="Update" class="btn btn-primary" />
+            </div>
+            <div class="formgroup mt-3">
+                <input type="submit" asp-page-handler="Delete" value="Delete" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+</div>
