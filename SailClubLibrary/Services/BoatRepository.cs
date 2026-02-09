@@ -27,7 +27,7 @@ namespace SailClubLibrary.Services
         public BoatRepository()
         {
             //_boats = [];
-            _boats = MockData.BoatData;
+            _boats = new MockData().BoatData;
         }
         #endregion
 

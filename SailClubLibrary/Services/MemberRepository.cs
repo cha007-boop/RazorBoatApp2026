@@ -33,7 +33,7 @@ namespace SailClubLibrary.Services
         public MemberRepository()
         {
             //_members = new Dictionary<string, Member>();
-            _members = MockData.MemberData;
+            _members = new MockData().MemberData;
         }
         #endregion
 
