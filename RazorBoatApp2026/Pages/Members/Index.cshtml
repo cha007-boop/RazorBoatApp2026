@@ -26,15 +26,69 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>First name</th>
-            <th>Surname</th>
-            <th>Phone number</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Mail</th>
-            <th>Member type</th>
-            <th>Member role</th>
+            <th>
+                <a asp-page="./Index" 
+                 asp-route-SortColumn="Id"
+                 asp-route-SortOrder="@Model.Toggle("Id")" class="text-decoration-none text-dark">
+                 Id @(Model.SortColumn == "Id" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+               </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="FirstName"
+                   asp-route-SortOrder="@Model.Toggle("FirstName")" class="text-decoration-none text-dark">
+                    First name @(Model.SortColumn == "FirstName" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="SurName"
+                   asp-route-SortOrder="@Model.Toggle("SurName")" class="text-decoration-none text-dark">
+                    Surname @(Model.SortColumn == "SurName" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="PhoneNumber"
+                   asp-route-SortOrder="@Model.Toggle("PhoneNumber")" class="text-decoration-none text-dark">
+                   Phone number @(Model.SortColumn == "PhoneNumber" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="Address"
+                   asp-route-SortOrder="@Model.Toggle("Address")" class="text-decoration-none text-dark">
+                   Address @(Model.SortColumn == "Address" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="City"
+                   asp-route-SortOrder="@Model.Toggle("City")" class="text-decoration-none text-dark">
+                   City @(Model.SortColumn == "City" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="Mail"
+                   asp-route-SortOrder="@Model.Toggle("Mail")" class="text-decoration-none text-dark">
+                   Mail @(Model.SortColumn == "Mail" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="MemberType"
+                   asp-route-SortOrder="@Model.Toggle("MemberType")" class="text-decoration-none text-dark">
+                   Member type @(Model.SortColumn == "MemberType" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="MemberRole"
+                   asp-route-SortOrder="@Model.Toggle("MemberRole")" class="text-decoration-none text-dark">
+                    Member role @(Model.SortColumn == "MemberRole" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
             <th></th>
         </tr>
     </thead>
