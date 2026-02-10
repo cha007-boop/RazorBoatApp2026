@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,22 @@ namespace SailClubLibrary.Models
         #endregion
 
         #region Properties
+        [Display(Name = "First name")]
+        [Required(ErrorMessage ="First name required")]
         public string FirstName { get; set; }
+        [Display(Name = "Surname")]
         public string SurName { get; set; }
+        [Display(Name = "Phone number")]
+        [Required(ErrorMessage = "Phone number required")]
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string Mail { get; set; }
+        [Display(Name = "Member type")]
         public MemberType TheMemberType { get; set; }
+        [Display(Name = "Member role")]
         public MemberRole TheMemberRole { get; set; }
+        [Required(ErrorMessage = "Id required")]
         public int Id { get; set; }
         #endregion
 

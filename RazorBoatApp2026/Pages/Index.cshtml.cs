@@ -12,7 +12,7 @@ namespace RazorBoatApp2026.Pages
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-            Name = "Peter";
+            Name = "";
         }
 
         public void OnGet()

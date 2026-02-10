@@ -8,6 +8,8 @@ namespace RazorBoatApp2026.Pages.Members
     public class IndexModel : PageModel
     {
         private IMemberRepository _repo;
+        [BindProperty(SupportsGet = true)]
+        public string FilterCriteria { get; set; }
         public List<Member> Members { get; set; }
         public IndexModel(IMemberRepository memberRepository)
         {
@@ -16,7 +18,10 @@ namespace RazorBoatApp2026.Pages.Members
 
         public void OnGet()
         {
-            Members = _repo.GetAllMembers();
+            if (!string.IsNullOrEmpty(FilterCriteria))
+                Members = _repo.FilterMembers(FilterCriteria);
+            else
+                Members = _repo.GetAllMembers();
         }
     }
 }

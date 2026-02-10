@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace SailClubLibrary.Models
         #endregion
         #region Properties
         public int Id { get; set; }
+        [Display(Name ="Start date")]
         public DateTime StartDate { get; set; }
+        [Display(Name ="End date")]
         public DateTime EndDate { get; set; }
         public bool IsActive
         {
@@ -25,7 +28,9 @@ namespace SailClubLibrary.Models
         }
         public bool SailCompleted { get; set; }
         public string Destination { get; set; }
+        [Display(Name ="Member")]
         public Member TheMember { get; set; }
+        [Display(Name ="Boat")]
         public Boat TheBoat { get; set; }
         #endregion
         #region Constructor

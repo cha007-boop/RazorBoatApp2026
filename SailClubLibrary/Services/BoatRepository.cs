@@ -108,7 +108,21 @@ namespace SailClubLibrary.Services
 
         public List<Boat> FilterBoats(string filterCriteria)
         {
-            throw new NotImplementedException();
+            List<Boat> filteredList = new List<Boat>();
+            foreach (Boat b in _boats.Values)
+            {
+                if (b.Id.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    b.SailNumber.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    b.TheBoatType.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    b.Model.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    b.YearOfConstruction.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    b.EngineInfo.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    filteredList.Add(b);
+                }
+            }
+
+            return filteredList;
         }
         #endregion
     }

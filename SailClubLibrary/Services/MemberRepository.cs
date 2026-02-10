@@ -4,7 +4,9 @@ using SailClubLibrary.Interfaces;
 using SailClubLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -129,7 +131,24 @@ namespace SailClubLibrary.Services
 
         public List<Member> FilterMembers(string filterCriteria)
         {
-            throw new NotImplementedException();
+            List<Member> filteredList = new List<Member>();
+
+            foreach (Member m in _members.Values)
+            {   
+                if (m.Address.Contains(filterCriteria,StringComparison.InvariantCultureIgnoreCase) ||
+                    m.City.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    m.Id.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    m.Mail.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    m.FirstName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    m.SurName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    m.PhoneNumber.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    m.TheMemberRole.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                    m.TheMemberType.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    filteredList.Add(m);
+                }
+            }
+            return filteredList;
         }
         #endregion
     }
