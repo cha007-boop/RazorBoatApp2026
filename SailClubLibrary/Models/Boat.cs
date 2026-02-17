@@ -11,7 +11,7 @@ namespace SailClubLibrary.Models
     /// <summary>
     /// Generic Class for Constructing Boat Objects using the interface
     /// </summary>
-    public class Boat : IComparable
+    public class Boat : IComparable<Boat>
     {
         #region Instance Fields
 
@@ -58,9 +58,9 @@ namespace SailClubLibrary.Models
         #endregion
 
         #region Methods
-        public int CompareTo(object? obj)
+        public int CompareTo(Boat? b)
         {
-            return Id.CompareTo(obj);
+            return Id.CompareTo(b.Id);
         }
 
         /// <summary>

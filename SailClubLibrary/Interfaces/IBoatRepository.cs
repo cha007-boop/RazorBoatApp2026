@@ -23,6 +23,7 @@ namespace SailClubLibrary.Interfaces
         void UpdateBoat(Boat boat);
         Boat? SearchBoat(string sailNumber);
         List<Boat> FilterBoats(string filterCriteria);
+        List<Boat> GetBoats(string filterCriteria, string sortColumn, string sortOrder);
         #endregion
     }
 }

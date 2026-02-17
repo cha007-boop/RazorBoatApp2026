@@ -17,7 +17,8 @@
 
 <div class="mt-3">
     <form>
-        search: <input type="text" asp-for="FilterCriteria" />
+        search: 
+        <input type="text" asp-for="FilterCriteria" />
         <input type="submit" value="Filter" />
     </form>
 </div>
@@ -25,12 +26,45 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Boat type</th>
-            <th>Model</th>
-            <th>Sail number</th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="Id"
+                   asp-route-SortOrder="@Model.Toggle("Id")" class="text-decoration-none text-dark">
+                    Id @(Model.SortColumn == "Id" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="BoatType"
+                   asp-route-SortOrder="@Model.Toggle("BoatType")" class="text-decoration-none text-dark">
+                    Boat type @(Model.SortColumn == "BoatType" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="Model"
+                   asp-route-SortOrder="@Model.Toggle("Model")" class="text-decoration-none text-dark">
+                    Model @(Model.SortColumn == "Model" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="SailNumber"
+                   asp-route-SortOrder="@Model.Toggle("SailNumber")" class="text-decoration-none text-dark">
+                    Sail number @(Model.SortColumn == "SailNumber" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
             <th>Engine info</th>
-            <th>Year of construction</th>
+            <th>Draft</th>
+            <th>Width</th>
+            <th>Length</th>
+            <th>
+                <a asp-page="./Index"
+                   asp-route-SortColumn="YearOfConstruction"
+                   asp-route-SortOrder="@Model.Toggle("YearOfConstruction")" class="text-decoration-none text-dark">
+                    Year of construction @(Model.SortColumn == "YearOfConstruction" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -43,6 +77,9 @@
                 <td>@b.Model</td>
                 <td>@b.SailNumber</td>
                 <td>@b.EngineInfo</td>
+                <td>@b.Draft</td>
+                <td>@b.Width</td>
+                <td>@b.Length</td>
                 <td>@b.YearOfConstruction</td>
                 <td><a asp-page="EditBoat" asp-route-sailnumber="@b.SailNumber" class="btn btn-primary">Edit</a></td>
             </tr>

@@ -124,6 +124,38 @@ namespace SailClubLibrary.Services
 
             return filteredList;
         }
+
+        public List<Boat> GetBoats(string filterCriteria, string sortColumn, string sortOrder)
+        {
+            List<Boat> boats = (!string.IsNullOrWhiteSpace(filterCriteria)) ? 
+                FilterBoats(filterCriteria) : _boats.Values.ToList();
+
+            bool asc = sortOrder == "asc";
+            switch (sortColumn)
+            {
+                case "Id":
+                    boats.Sort(); 
+                    break;
+                case "SailNumber":
+                    boats.Sort(new BoatCompareSailNumber());
+                    break;
+                case "BoatType":
+                    boats.Sort(new BoatCompareBoatType());
+                    break;
+                case "Model":
+                    boats.Sort(new BoatCompareModel());
+                    break;
+                case "YearOfConstruction":
+                    boats.Sort(new BoatCompareYear());
+                    break;
+                default:
+                    break;
+            }
+            if (!asc) boats.Reverse();
+
+            return boats;
+
+        }
         #endregion
     }
 }
