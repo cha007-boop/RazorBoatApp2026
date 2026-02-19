@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SailClubLibrary.Interfaces;
 using SailClubLibrary.Models;
+using System.Reflection;
 
 namespace RazorBoatApp2026.Pages.Members
 {
@@ -10,6 +11,10 @@ namespace RazorBoatApp2026.Pages.Members
         private IMemberRepository _repo;
         [BindProperty(SupportsGet = true)]
         public string FilterCriteria { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string FilterBy { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public MemberType? SelectedMemberType { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SortColumn { get; set; }
         [BindProperty(SupportsGet = true)]
@@ -23,13 +28,12 @@ namespace RazorBoatApp2026.Pages.Members
 
         public void OnGet()
         {
-            Members = !string.IsNullOrEmpty(FilterCriteria) 
-                ? _repo.FilterMembers(FilterCriteria) 
-                : Members = _repo.GetAllMembers();
+            Members = _repo.FilterMembers(FilterBy, FilterCriteria, SelectedMemberType);
 
             Members = SortMembers(Members);
         }
 
+        /* Long switch case for sorting
         private List<Member> SortMembers(List<Member> members)
         {
             bool asc = SortOrder == "asc";
@@ -37,47 +41,61 @@ namespace RazorBoatApp2026.Pages.Members
             switch (SortColumn)
             {
                 case "Id":
-                    return asc ? 
-                        members.OrderBy(m => m.Id).ToList() 
+                    return asc ?
+                        members.OrderBy(m => m.Id).ToList()
                         : members.OrderByDescending(m => m.Id).ToList();
                 case "FirstName":
-                    return asc ? 
-                        members.OrderBy(m => m.FirstName).ToList() 
+                    return asc ?
+                        members.OrderBy(m => m.FirstName).ToList()
                         : members.OrderByDescending(m => m.FirstName).ToList();
                 case "SurName":
-                    return asc ? 
+                    return asc ?
                         members.OrderBy(m => m.SurName).ToList()
                         : members.OrderByDescending(m => m.SurName).ToList();
                 case "PhoneNumber":
-                    return asc ? 
+                    return asc ?
                         members.OrderBy(m => m.PhoneNumber).ToList()
                         : members.OrderByDescending(m => m.PhoneNumber).ToList();
                 case "Address":
-                    return asc ? 
+                    return asc ?
                         members.OrderBy(m => m.Address).ToList()
                         : members.OrderByDescending(m => m.Address).ToList();
                 case "City":
-                    return asc ? 
+                    return asc ?
                         members.OrderBy(m => m.City).ToList()
                         : members.OrderByDescending(m => m.City).ToList();
                 case "Mail":
-                    return asc ? 
+                    return asc ?
                         members.OrderBy(m => m.Mail).ToList()
                         : members.OrderByDescending(m => m.Mail).ToList();
                 case "MemberType":
-                    return asc ? 
+                    return asc ?
                         members.OrderBy(m => m.TheMemberType).ToList()
                         : members.OrderByDescending(m => m.TheMemberType).ToList();
                 case "MemberRole":
-                    return asc ? 
+                    return asc ?
                         members.OrderBy(m => m.TheMemberRole).ToList()
                         : members.OrderByDescending(m => m.TheMemberRole).ToList();
 
                 default:
                     return members;
             }
+        }
+        */
 
+        private List<Member> SortMembers(List<Member> members)
+        {
+            bool asc = SortOrder == "asc";
+            if (string.IsNullOrEmpty(SortColumn))
+                return members;
 
+            Func<Member, string> memberProp = m =>
+            {
+                PropertyInfo? propertyInfo = typeof(Member).GetProperty(SortColumn);
+                return propertyInfo.GetValue(m).ToString();
+            };
+
+            return asc ? members.OrderBy(memberProp).ToList() : members.OrderByDescending(memberProp).ToList();
         }
 
         public string Toggle(string column)

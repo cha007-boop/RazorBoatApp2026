@@ -10,7 +10,13 @@ namespace RazorBoatApp2026.Pages.Boats
         private IBoatRepository _repo;
 
         [BindProperty(SupportsGet = true)]
+        public string FilterBy { get; set; }
+        [BindProperty(SupportsGet = true)]
         public string FilterCriteria { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public BoatType? SelectedBoatType { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string SortColumn { get; set; }
         [BindProperty(SupportsGet = true)]
@@ -30,7 +36,7 @@ namespace RazorBoatApp2026.Pages.Boats
             //    Boats = _repo.FilterBoats(FilterCriteria);
             //else
             //    Boats = _repo.GetAllBoats();
-            Boats = _repo.GetBoats(FilterCriteria, SortColumn, SortOrder);
+            Boats = _repo.GetBoats(FilterBy, FilterCriteria, SelectedBoatType, SortColumn, SortOrder);
         }
 
         public string Toggle(string column)

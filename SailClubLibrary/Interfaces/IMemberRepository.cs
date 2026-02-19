@@ -16,6 +16,6 @@ namespace SailClubLibrary.Interfaces
         List<Member> GetAllMembers();
         void PrintAll();
         Member? SearchMember(string phoneNumber);
-        List<Member> FilterMembers(string filterCriteria);
+        List<Member> FilterMembers(string filterBy, string filterCriteria, MemberType? selectedMemberType);
     }
 }

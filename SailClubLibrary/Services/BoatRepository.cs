@@ -5,6 +5,7 @@ using SailClubLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -106,6 +107,41 @@ namespace SailClubLibrary.Services
             Console.WriteLine();
         }
 
+        public List<Boat> FilterBoats(string filterByProperty, string filterCriteria, BoatType? boatType)
+        {
+            var filteredList = _boats.Values.Where(b => b.TheBoatType == (boatType ?? b.TheBoatType));
+
+            var filter = new FilterByProperty<Boat>(filterByProperty, filterCriteria);
+            filteredList = filteredList.Where(b => filter.IsMatch(b));
+
+            return filteredList.ToList();
+
+        }
+
+        public List<Boat> GetBoats(string filterByProperty, string filterCriteria, BoatType? boatType, string sortColumn, string sortOrder)
+        {
+            List<Boat> boats = FilterBoats(filterByProperty, filterCriteria, boatType);
+
+            boats = Sortboats(boats, sortColumn, sortOrder);
+
+            return boats;
+        }
+
+        private List<Boat> Sortboats(List<Boat> boats, string sortBy, string sortOrder)
+        {
+            bool asc = sortOrder == "asc";
+            if (string.IsNullOrEmpty(sortBy)) return boats;
+
+            Func<Boat, string> boatProp = b =>
+            {
+                PropertyInfo? propertyInfo = typeof(Boat).GetProperty(sortBy);
+                return propertyInfo.GetValue(b).ToString();
+            };
+
+            return asc ? boats.OrderBy(boatProp).ToList() : boats.OrderByDescending(boatProp).ToList();
+        }
+
+        /*
         public List<Boat> FilterBoats(string filterCriteria)
         {
             List<Boat> filteredList = new List<Boat>();
@@ -127,14 +163,13 @@ namespace SailClubLibrary.Services
 
         public List<Boat> GetBoats(string filterCriteria, string sortColumn, string sortOrder)
         {
-            List<Boat> boats = (!string.IsNullOrWhiteSpace(filterCriteria)) ? 
+            List<Boat> boats = (!string.IsNullOrWhiteSpace(filterCriteria)) ?
                 FilterBoats(filterCriteria) : _boats.Values.ToList();
 
-            bool asc = sortOrder == "asc";
             switch (sortColumn)
             {
                 case "Id":
-                    boats.Sort(); 
+                    boats.Sort();
                     break;
                 case "SailNumber":
                     boats.Sort(new BoatCompareSailNumber());
@@ -151,11 +186,12 @@ namespace SailClubLibrary.Services
                 default:
                     break;
             }
-            if (!asc) boats.Reverse();
+            if (sortOrder != "asc") boats.Reverse();
 
             return boats;
 
         }
+        */
         #endregion
     }
 }

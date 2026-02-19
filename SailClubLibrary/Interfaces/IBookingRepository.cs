@@ -19,5 +19,8 @@ namespace SailClubLibrary.Interfaces
         void PrintAll();
         int GetBookingCountForMember(Member member);
         Dictionary<string, int> GetAllBookingsForMembers();
+        List<Booking> GetBookingsForBoat(string sailNumber);
+        List<Booking> GetOverlappingBookings(string sailNumber, DateTime startDate, DateTime endDate);
+
     }
 }

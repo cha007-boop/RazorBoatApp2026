@@ -10,7 +10,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <form method="post">
             <div class="form-group">
                 <label asp-for="NewBooking.Id" class="control-label"></label>
@@ -18,11 +18,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="NewBooking.StartDate" class="control-label"></label>
-                <input asp-for="NewBooking.StartDate" class="form-control" asp-format="{0:yyyy-MM-dd-THH:mm}" />
+                <input asp-for="NewBooking.StartDate" 
+                id="startDate"
+                type="datetime-local"
+                class="form-control" />
+
+                <span asp-validation-for="NewBooking.StartDate"
+                      class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NewBooking.EndDate" class="control-label"></label>
-                <input asp-for="NewBooking.EndDate" class="form-control" asp-format="{0:yyyy-MM-dd-THH:mm}" />
+                <input asp-for="NewBooking.EndDate" 
+                id="endDate"
+                type="datetime-local"
+                class="form-control" />
+
+                <span asp-validation-for="NewBooking.EndDate"
+                      class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NewBooking.Destination" class="control-label"></label>
@@ -40,6 +52,7 @@
                 <label asp-for="NewBooking.TheBoat" class="control-label"></label>
                 <select asp-for="SailNumber"
                         asp-items="Model.Boats"
+                        id="boatSelect"
                         class="form-select">
                     <option value="">-- Select Boat --</option>
                 </select>

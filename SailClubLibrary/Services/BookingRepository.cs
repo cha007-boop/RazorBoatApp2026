@@ -194,6 +194,15 @@ namespace SailClubLibrary.Services
             }
             return activeList;
         }
+        public List<Booking> GetBookingsForBoat(string sailNumber)
+        {
+            return _bookings.FindAll(b => b.TheBoat.SailNumber == sailNumber);
+        }
+
+        public List<Booking> GetOverlappingBookings(string sailNumber, DateTime start, DateTime end)
+        {
+            return _bookings.FindAll(b => b.TheBoat.SailNumber == sailNumber).FindAll(b => start < b.EndDate && end > b.StartDate);
+        }
         #endregion
     }
 }

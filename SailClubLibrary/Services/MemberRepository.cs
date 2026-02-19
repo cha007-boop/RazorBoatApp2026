@@ -129,27 +129,103 @@ namespace SailClubLibrary.Services
             }
         }
 
-        public List<Member> FilterMembers(string filterCriteria)
+        public List<Member> FilterMembers(string filterByProperty, string filterCriteria, MemberType? memberType)
+        {
+            var filteredList = _members.Values.Where(m => m.TheMemberType == (memberType ?? m.TheMemberType));
+            var filter = new FilterByProperty<Member>(filterByProperty, filterCriteria);
+            filteredList = filteredList.Where(m => filter.IsMatch(m));
+
+            return filteredList.ToList();
+        }
+
+        /* switch case filtering
+        public List<Member> FilterMembers(string filterCriteria, string filterByProperty, MemberType memberType)
         {
             List<Member> filteredList = new List<Member>();
 
-            foreach (Member m in _members.Values)
-            {   
-                if (m.Address.Contains(filterCriteria,StringComparison.InvariantCultureIgnoreCase) ||
+            foreach (Member m in _members.Values.Where(m => m.TheMemberType == memberType))
+            {
+                switch (filterByProperty)
+                {
+                    case "FirstName":
+                        if (m.FirstName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                            filteredList.Add(m);
+                        break;
+                    case "SurName":
+                        if (m.SurName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                            filteredList.Add(m);
+                        break;
+                    case "PhoneNumber":
+                        if (m.PhoneNumber.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                            filteredList.Add(m);
+                        break;
+                    case "Address":
+                        if (m.Address.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                            filteredList.Add(m);
+                        break;
+                    case "Mail":
+                        if (m.Mail.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                            filteredList.Add(m);
+                        break;
+                    case "City":
+                        if (m.City.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                            filteredList.Add(m);
+                        break;
+                    case "Id":
+                        if (m.Id.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                            filteredList.Add(m);
+                        break;
+                    default:
+                        if (m.Address.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                            m.City.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                            m.Id.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                            m.Mail.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                            m.FirstName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                            m.SurName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
+                            m.PhoneNumber.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            filteredList.Add(m);
+                        }
+                        break;
+                }
+            }
+            return filteredList;
+        }
+        */
+
+        /*
+        public List<Member> FilterMembers(string filterCriteria, string filterByProperty, MemberType memberType)
+        {
+            var filteredList = _members.Values.Where(m => m.TheMemberType == memberType);
+            if (!string.IsNullOrEmpty(filterByProperty))
+            {
+                PropertyInfo propertyInfo = typeof(Member).GetProperty(filterByProperty);
+                if (propertyInfo != null)
+                {
+                    filteredList = filteredList.Where(m =>
+                    {
+                        var value = propertyInfo.GetValue(m).ToString();
+                        return value != null && value.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase);
+                    });
+                }
+            }
+            else
+            {
+                filteredList = filteredList.Where(m =>
+                    m.Address.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
                     m.City.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
                     m.Id.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
                     m.Mail.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
                     m.FirstName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
                     m.SurName.Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
-                    m.PhoneNumber.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
-                    m.TheMemberRole.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase) ||
-                    m.TheMemberType.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    filteredList.Add(m);
-                }
+                    m.PhoneNumber.ToString().Contains(filterCriteria, StringComparison.InvariantCultureIgnoreCase));
             }
-            return filteredList;
+            return filteredList.ToList();
         }
+        */
+
+
+
         #endregion
     }
 }

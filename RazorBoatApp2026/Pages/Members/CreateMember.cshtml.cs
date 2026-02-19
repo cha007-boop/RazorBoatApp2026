@@ -39,7 +39,6 @@ namespace RazorBoatApp2026.Pages.Members
                 return Page();
             }
 
-            _repo.AddMember(NewMember);
             return RedirectToPage("Index");
         }
     }
