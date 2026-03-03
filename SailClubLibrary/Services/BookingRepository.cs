@@ -1,4 +1,5 @@
-﻿using SailClubLibrary.Exceptions;
+﻿using SailClubLibrary.Data;
+using SailClubLibrary.Exceptions;
 using SailClubLibrary.Interfaces;
 using SailClubLibrary.Models;
 using System;
@@ -22,6 +23,8 @@ namespace SailClubLibrary.Services
         public BookingRepository()
         {
             _bookings = [];
+            MockData data = new MockData();
+            AddBooking(new Booking(1, DateTime.Now, DateTime.Now.AddDays(1), "Havnen", data.MemberData["23456789"], data.BoatData["16-3335"]));
         }
         #endregion
 
@@ -80,10 +83,20 @@ namespace SailClubLibrary.Services
                 throw new InvalidDateException("Startdato skal være før slutdato.");
             }
 
-            if (CheckBookingOverlaps(boat, startDate, endDate))
+            var overlaps = GetOverlappingBookings(boat.SailNumber, startDate, endDate);
+
+            if (overlaps.Any())
             {
-                throw new OverlappingDateException("Bookingen overlapper med en anden.");
+                string overlapString = overlaps[0].StartDate.ToString("yyyy/MM/dd HH:mm") + " - " + 
+                    (overlaps[0].StartDate.Date == overlaps[0].EndDate.Date ? "" : overlaps[0].EndDate.ToString("yyyy/MM/dd")) + 
+                    " " + overlaps[0].EndDate.ToString("HH:mm");
+                throw new OverlappingDateException("Boat already has a booking in time period: " + overlapString);
             }
+
+            //if (CheckBookingOverlaps(boat, startDate, endDate))
+            //{
+            //    throw new OverlappingDateException("Bookingen overlapper med en anden.");
+            //}
 
             foreach (Booking b in _bookings)
             {
@@ -201,7 +214,7 @@ namespace SailClubLibrary.Services
 
         public List<Booking> GetOverlappingBookings(string sailNumber, DateTime start, DateTime end)
         {
-            return _bookings.FindAll(b => b.TheBoat.SailNumber == sailNumber).FindAll(b => start < b.EndDate && end > b.StartDate);
+            return _bookings.Where(b => b.TheBoat.SailNumber == sailNumber && start < b.EndDate && end > b.StartDate).ToList();
         }
         #endregion
     }

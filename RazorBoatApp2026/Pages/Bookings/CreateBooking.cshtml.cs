@@ -49,19 +49,19 @@ namespace RazorBoatApp2026.Pages.Bookings
             NewBooking.TheMember = _memberRepo.SearchMember(PhoneNumber);
             NewBooking.TheBoat = _boatRepo.SearchBoat(SailNumber);
 
-            var overlaps = _bookingRepo.GetOverlappingBookings(SailNumber, NewBooking.StartDate, NewBooking.EndDate);
+            //var overlaps = _bookingRepo.GetOverlappingBookings(SailNumber, NewBooking.StartDate, NewBooking.EndDate);
 
-            if (overlaps.Any())
-            {
-                string overlapString = overlaps[0].StartDate.ToString("yyyy/MM/dd HH:mm") + " - " + ( overlaps[0].StartDate.Date == overlaps[0].EndDate.Date 
-                    ?  "" : overlaps[0].EndDate.ToString("yyyy/MM/dd")) + " " + overlaps[0].EndDate.ToString("HH:mm");
+            //if (overlaps.Any())
+            //{
+            //    string overlapString = overlaps[0].StartDate.ToString("yyyy/MM/dd HH:mm") + " - " + (overlaps[0].StartDate.Date == overlaps[0].EndDate.Date
+            //        ? "" : overlaps[0].EndDate.ToString("yyyy/MM/dd")) + " " + overlaps[0].EndDate.ToString("HH:mm");
 
-                ModelState.AddModelError("NewBooking.StartDate",
-                    "Boat already has a booking in time period: " + overlapString);
+            //    ModelState.AddModelError("NewBooking.StartDate",
+            //        "Boat already has a booking in time period: " + overlapString);
 
-                OnGet();     
-                return Page();
-            }
+            //    OnGet();
+            //    return Page();
+            //}
 
             ModelState.Clear(); 
             TryValidateModel(NewBooking);
@@ -92,7 +92,8 @@ namespace RazorBoatApp2026.Pages.Bookings
             }
             catch (OverlappingDateException oex)
             {
-                ViewData["ErrorMessage"] = oex.Message;
+                //ViewData["ErrorMessage"] = oex.Message;
+                ModelState.AddModelError("NewBooking.StartDate", oex.Message);
                 OnGet();
                 return Page();
             }

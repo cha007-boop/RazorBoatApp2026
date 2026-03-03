@@ -118,19 +118,11 @@ namespace SailClubLibrary.Services
 
         }
 
-        public List<Boat> GetBoats(string filterByProperty, string filterCriteria, BoatType? boatType, string sortColumn, string sortOrder)
-        {
-            List<Boat> boats = FilterBoats(filterByProperty, filterCriteria, boatType);
-
-            boats = Sortboats(boats, sortColumn, sortOrder);
-
-            return boats;
-        }
-
         private List<Boat> Sortboats(List<Boat> boats, string sortBy, string sortOrder)
         {
             bool asc = sortOrder == "asc";
-            if (string.IsNullOrEmpty(sortBy)) return boats;
+            if (string.IsNullOrEmpty(sortBy)) 
+                return boats;
 
             Func<Boat, string> boatProp = b =>
             {
@@ -141,6 +133,14 @@ namespace SailClubLibrary.Services
             return asc ? boats.OrderBy(boatProp).ToList() : boats.OrderByDescending(boatProp).ToList();
         }
 
+        public List<Boat> GetBoats(string filterByProperty, string filterCriteria, BoatType? boatType, string sortColumn, string sortOrder)
+        {
+            List<Boat> boats = FilterBoats(filterByProperty, filterCriteria, boatType);
+
+            boats = Sortboats(boats, sortColumn, sortOrder);
+
+            return boats;
+        }
         /*
         public List<Boat> FilterBoats(string filterCriteria)
         {
