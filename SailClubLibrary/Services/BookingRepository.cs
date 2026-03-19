@@ -79,12 +79,12 @@ namespace SailClubLibrary.Services
 
             if ((boat == null || member == null))
             {
-                throw new NullReferenceException("Mangler input");
+                throw new NullReferenceException("Missing input");
             }
 
             if ((startDate >= endDate))
             {
-                throw new InvalidDateException("Startdato skal være før slutdato.");
+                throw new InvalidDateException("End date must be after start date.");
             }
 
             var overlaps = GetOverlappingBookings(boat.SailNumber, startDate, endDate);

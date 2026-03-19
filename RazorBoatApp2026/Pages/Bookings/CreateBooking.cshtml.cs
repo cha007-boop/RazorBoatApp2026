@@ -70,9 +70,9 @@ namespace RazorBoatApp2026.Pages.Bookings
             }
             catch (InvalidDateException iex)
             {
-                ViewData["ErrorMessage"] = iex.Message;
+                //ViewData["ErrorMessage"] = iex.Message;
                 ModelState.AddModelError("NewBooking.EndDate",
-                    "End date must be after start date");
+                    iex.Message);
                 OnGet();
                 return Page();
             }
