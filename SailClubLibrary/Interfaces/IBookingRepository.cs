@@ -1,4 +1,5 @@
 ﻿using SailClubLibrary.Models;
+using SailClubLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,13 @@ namespace SailClubLibrary.Interfaces
     /// </summary>
     public interface IBookingRepository
     {
+        /// <summary>
+        /// Adds a new booking to the system.
+        /// </summary>
+        /// <param name="booking">The booking to add. Cannot be null.</param>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <exception cref="InvalidDateException"></exception>
+        /// <exception cref="OverlappingDateException"></exception>
         void AddBooking(Booking booking);
         void RemoveBooking(Booking b);
         List<Booking> GetAllBookings();

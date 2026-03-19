@@ -62,10 +62,14 @@ namespace SailClubLibrary.Services
             }
         }
 
-        /// <summary>
+        /// /// <summary>
         /// Books a boat if all checks are passed,
         /// otherwise an exception is thrown.
         /// </summary>
+        /// <param name="booking">The booking to add. Cannot be null</param>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <exception cref="InvalidDateException"></exception>
+        /// <exception cref="OverlappingDateException"></exception>
         public void AddBooking(Booking booking)
         {
             Boat boat = booking.TheBoat;
