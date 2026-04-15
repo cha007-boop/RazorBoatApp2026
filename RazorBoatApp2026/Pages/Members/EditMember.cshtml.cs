@@ -7,22 +7,37 @@ namespace RazorBoatApp2026.Pages.Members
 {
     public class EditMemberModel : PageModel
     {
-        private IMemberRepository _repo;
+        private IWebHostEnvironment webHostEnvironment;
+        private IMemberRepositoryAsync _repo;
 
         [BindProperty]
         public Member TheMember { get; set; }
-        public EditMemberModel(IMemberRepository memberRepository)
+        [BindProperty]
+        public IFormFile Photo { get; set; }
+        public EditMemberModel(IMemberRepositoryAsync memberRepository, IWebHostEnvironment webHost)
         {
             _repo = memberRepository;
+            webHostEnvironment = webHost;
         }
-        public IActionResult OnGet(string phoneNumber)
+        public async Task<IActionResult> OnGet(int id)
         {
-            TheMember = _repo.SearchMember(phoneNumber);
+            TheMember = await _repo.SearchMember(id);
             return Page();
         }
 
         public IActionResult OnPostEdit()
         {
+            if (Photo != null)
+            {
+                if (TheMember.MemberImage != null)
+                {
+                    string filePath = Path.Combine(webHostEnvironment.WebRootPath, "images/MemberImages", TheMember.MemberImage);
+                    System.IO.File.Delete(filePath);
+                }
+
+                TheMember.MemberImage = ProcessUploadedFile();
+            }
+
             _repo.UpdateMember(TheMember);
             return RedirectToPage("Index");
         }
@@ -31,6 +46,22 @@ namespace RazorBoatApp2026.Pages.Members
         {
             _repo.RemoveMember(TheMember);
             return RedirectToPage("Index");
+        }
+
+        private string ProcessUploadedFile()
+        {
+            string uniqueFileName = null;
+            if (Photo != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images/MemberImages");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    Photo.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

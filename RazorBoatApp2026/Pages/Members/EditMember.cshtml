@@ -6,67 +6,81 @@
 }
 
 <div>
-    <h1>Edit member with phone number @Model.TheMember.PhoneNumber</h1>
+    <h1>Edit member with ID @Model.TheMember.Id</h1>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <input type="hidden" asp-for="@Model.TheMember.PhoneNumber" />
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.Id" class="control-label"></label>
-                <input asp-for="@Model.TheMember.Id" readonly class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.FirstName" class="control-label"></label>
-                <input asp-for="@Model.TheMember.FirstName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.SurName" class="control-label"></label>
-                <input asp-for="@Model.TheMember.SurName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.PhoneNumber" class="control-label"></label>
-                <input asp-for="@Model.TheMember.PhoneNumber" readonly class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.Address" class="control-label"></label>
-                <input asp-for="@Model.TheMember.Address" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.City" class="control-label"></label>
-                <input asp-for="@Model.TheMember.City" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.Mail" class="control-label"></label>
-                <input asp-for="@Model.TheMember.Mail" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.TheMemberType" class="control-label"></label>
-                <select asp-for="@Model.TheMember.TheMemberType"
-                        asp-items="Html.GetEnumSelectList<MemberType>()"
-                        class="form-select">
-                    <option value="">-- Select member type --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.TheMember.TheMemberRole" class="control-label"></label>
-                <select asp-for="@Model.TheMember.TheMemberRole"
-                        asp-items="Html.GetEnumSelectList<MemberRole>()"
-                        class="form-select">
-                    <option value="">-- Select member role --</option>
-                </select>
-            </div>
+<div class="container">
 
-            <div class="formgroup mt-3">
-                <input type="submit" asp-page-handler="Edit" value="Update" class="btn btn-primary" />
-            </div>
-            <div class="formgroup mt-3">
-                <input type="submit" asp-page-handler="Delete" value="Delete" class="btn btn-danger" />
-            </div>
-        </form>
-    </div>
-    <div>
-        <a asp-page="Index">Back to List</a>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.TheMember.Id" />
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.Id" class="control-label"></label>
+                    <input asp-for="@Model.TheMember.Id" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.FirstName" class="control-label"></label>
+                    <input asp-for="@Model.TheMember.FirstName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.SurName" class="control-label"></label>
+                    <input asp-for="@Model.TheMember.SurName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.PhoneNumber" class="control-label"></label>
+                    <input asp-for="@Model.TheMember.PhoneNumber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.Address" class="control-label"></label>
+                    <input asp-for="@Model.TheMember.Address" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.City" class="control-label"></label>
+                    <input asp-for="@Model.TheMember.City" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.Mail" class="control-label"></label>
+                    <input asp-for="@Model.TheMember.Mail" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.TheMemberType" class="control-label"></label>
+                    <select asp-for="@Model.TheMember.TheMemberType"
+                            asp-items="Html.GetEnumSelectList<MemberType>()"
+                            class="form-select">
+                        <option value="">-- Select member type --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.TheMember.TheMemberRole" class="control-label"></label>
+                    <select asp-for="@Model.TheMember.TheMemberRole"
+                            asp-items="Html.GetEnumSelectList<MemberRole>()"
+                            class="form-select">
+                        <option value="">-- Select member role --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Photo" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="@Model.Photo" class="custom-file-input form-control" />
+                    </div>
+                </div>
+
+                <div class="formgroup mt-3">
+                    <input type="submit" asp-page-handler="Edit" value="Update" class="btn btn-primary" />
+                </div>
+                <div class="formgroup mt-3">
+                    <input type="submit" asp-page-handler="Delete" value="Delete" class="btn btn-danger" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <img src="~/images/MemberImages/@Model.TheMember.MemberImage" class="img-fluid" />
+        </div>
+        <div>
+            <a asp-page="Index">Back to List</a>
+        </div>
     </div>
 </div>

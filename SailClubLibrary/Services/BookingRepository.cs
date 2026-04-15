@@ -23,8 +23,8 @@ namespace SailClubLibrary.Services
         public BookingRepository()
         {
             _bookings = [];
-            MockData data = new MockData();
-            AddBooking(new Booking(1, DateTime.Now, DateTime.Now.AddDays(1), "Havnen", data.MemberData["23456789"], data.BoatData["16-3335"]));
+            //MockData data = new MockData();
+            //AddBooking(new Booking(1, DateTime.Now, DateTime.Now.AddDays(1), "Havnen", data.MemberData["23456789"], data.BoatData["16-3335"]));
         }
         #endregion
 

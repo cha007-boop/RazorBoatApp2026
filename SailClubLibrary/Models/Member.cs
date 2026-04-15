@@ -30,6 +30,7 @@ namespace SailClubLibrary.Models
         public MemberRole TheMemberRole { get; set; }
         [Required(ErrorMessage = "Id required")]
         public int Id { get; set; }
+        public string? MemberImage { get; set; }
         #endregion
 
         #region Constructor
