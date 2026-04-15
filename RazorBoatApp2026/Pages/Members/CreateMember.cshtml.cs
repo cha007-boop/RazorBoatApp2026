@@ -44,6 +44,9 @@ namespace RazorBoatApp2026.Pages.Members
                 NewMember.MemberImage = "default.jpg";
             }
 
+            ModelState.Clear();
+            TryValidateModel(NewMember);
+
             try
             {
                 await _repo.AddMember(NewMember);
@@ -51,6 +54,7 @@ namespace RazorBoatApp2026.Pages.Members
             catch (MemberPhoneNumberExistsException mex)
             {
                 ViewData["ErrorMessage"] = mex.Message;
+                ModelState.AddModelError("NewMember.PhoneNumber", mex.Message);
                 return Page();
             }
             catch (Exception ex)

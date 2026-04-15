@@ -81,8 +81,24 @@ namespace SailClubLibrary.Services
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
+                string phoneSearchSql = "Select PhoneNumber FROM SailClubMember WHERE PhoneNumber = @PhoneNumber";
+                SqlCommand command = new SqlCommand(phoneSearchSql, connection);
+                command.Parameters.AddWithValue("@PhoneNumber", member.PhoneNumber);
+                await command.Connection.OpenAsync();
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    reader.Close();
+                    throw new MemberPhoneNumberExistsException("A member with this phone number already exists.");
+                }
+            }
+            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
                 try
                 {
+                    
+
                     SqlCommand command = new SqlCommand(_insertSql, connection);
                     await command.Connection.OpenAsync();
                     command.Parameters.AddWithValue("@FirstName", member.FirstName);
@@ -102,6 +118,11 @@ namespace SailClubLibrary.Services
                         command.Parameters.AddWithValue("@MemberImage", DBNull.Value);
                     }
                     await command.ExecuteNonQueryAsync();
+                }
+                catch (MemberPhoneNumberExistsException mex)
+                {
+                    Console.WriteLine(mex.Message);
+                    throw;
                 }
                 catch (SqlException sqlExp)
                 {
@@ -320,7 +341,7 @@ namespace SailClubLibrary.Services
             {
                 "MemberId", "FirstName", "SurName", "PhoneNumber", "MemberAddress", "City", "Mail"
             };
-            if (!allowedColumns.Contains(filterByProperty))
+            if (!allowedColumns.Contains(filterByProperty) && filterByProperty != null)
             {
                 throw new ArgumentException("Invalid filter column");
             }

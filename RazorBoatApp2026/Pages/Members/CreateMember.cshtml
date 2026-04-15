@@ -23,7 +23,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.NewMember.PhoneNumber" class="control-label"></label>
-                <input asp-for="@Model.NewMember.PhoneNumber" class="form-control" />
+                <input asp-for="@Model.NewMember.PhoneNumber" 
+                id="PhoneNumber"
+                class="form-control" />
+                <span asp-validation-for="NewMember.PhoneNumber"
+                      class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="@Model.NewMember.Address" class="control-label"></label>
