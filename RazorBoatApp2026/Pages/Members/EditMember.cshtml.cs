@@ -44,7 +44,7 @@ namespace RazorBoatApp2026.Pages.Members
         
         public IActionResult OnPostDelete()
         {
-            _repo.RemoveMember(TheMember);
+            _repo.RemoveMember(TheMember.Id);
             return RedirectToPage("Index");
         }
 

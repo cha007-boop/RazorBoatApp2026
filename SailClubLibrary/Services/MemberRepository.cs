@@ -97,8 +97,6 @@ namespace SailClubLibrary.Services
             {
                 try
                 {
-                    
-
                     SqlCommand command = new SqlCommand(_insertSql, connection);
                     await command.Connection.OpenAsync();
                     command.Parameters.AddWithValue("@FirstName", member.FirstName);
@@ -115,7 +113,7 @@ namespace SailClubLibrary.Services
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@MemberImage", DBNull.Value);
+                        command.Parameters.AddWithValue("@MemberImage", "default.jpg");
                     }
                     await command.ExecuteNonQueryAsync();
                 }
@@ -191,8 +189,8 @@ namespace SailClubLibrary.Services
         /// <summary>
         /// Method for removing a member from the database
         /// </summary>
-        /// <param name="member">The member to remove from database</param>
-        public async Task RemoveMember(Member member)
+        /// <param name="id">The ID of the member to remove from database</param>
+        public async Task RemoveMember(int id)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -200,7 +198,7 @@ namespace SailClubLibrary.Services
                 {
                     SqlCommand command = new SqlCommand(_deleteSql, connection);
                     await command.Connection.OpenAsync();
-                    command.Parameters.AddWithValue("@ID", member.Id);
+                    command.Parameters.AddWithValue("@ID", id);
                     await command.ExecuteNonQueryAsync();
 
                 }

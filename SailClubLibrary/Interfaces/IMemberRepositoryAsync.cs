@@ -11,7 +11,7 @@ namespace SailClubLibrary.Interfaces
     {
         Task<int> Count();
         Task AddMember(Member member);
-        Task RemoveMember(Member member);
+        Task RemoveMember(int id);
         Task UpdateMember(Member member);
         Task<List<Member>> GetAllMembers();
         Task<List<Member>> GetAllMembers(string filterByProperty, string filterCriteria, MemberType? theMemberType, string sortColumn, string sortOrder);
