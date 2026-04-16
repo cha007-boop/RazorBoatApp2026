@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[SailClubMember] (
     [Mail]          VARCHAR (100) NOT NULL,
     [MemberType]    INT           NULL,
     [MemberRole]    INT           NULL,
-    [MemberImage]   VARCHAR (200) DEFAULT ('default.jpg') NOT NULL,
+    [MemberImage]   VARCHAR (200) DEFAULT ('default.jpg') NULL,
     PRIMARY KEY CLUSTERED ([MemberId] ASC),
     UNIQUE NONCLUSTERED ([PhoneNumber] ASC),
     CONSTRAINT [Mem_Role] CHECK ([MemberRole]<=(2) AND [MemberRole]>=(0)),
